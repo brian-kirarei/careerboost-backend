@@ -1,15 +1,7 @@
 from django.urls import path
-from .views import JobViewSet
-
-job_list = JobViewSet.as_view({
-    'get': 'list'
-})
-
-job_detail = JobViewSet.as_view({
-    'get': 'retrieve'
-})
+from .views import JobListView, JobDetailView
 
 urlpatterns = [
-    path('', job_list, name='job-list'),
-    path('<int:pk>/', job_detail, name='job-detail'),
+    path("", JobListView.as_view(), name="job-list"),
+    path("<int:pk>/", JobDetailView.as_view(), name="job-detail"),
 ]
