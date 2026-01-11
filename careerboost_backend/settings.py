@@ -147,6 +147,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://careerboost-backend-production-adad.up.railway.app",
 ]
 
+
 # ========================
 # REST FRAMEWORK
 # ========================
@@ -160,3 +161,13 @@ REST_FRAMEWORK = {
 # DEFAULT PRIMARY KEY
 # ========================
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# ========================
+# RAILWAY / PROXY FIX (CRITICAL)
+# ========================
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+USE_X_FORWARDED_HOST = True
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
