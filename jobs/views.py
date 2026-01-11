@@ -1,12 +1,7 @@
-from rest_framework import generics
+from rest_framework.generics import ListAPIView
 from .models import Job
 from .serializers import JobSerializer
 
-class JobListView(generics.ListAPIView):
-    queryset = Job.objects.all().order_by("-created_at")
-    serializer_class = JobSerializer
-
-
-class JobDetailView(generics.RetrieveAPIView):
+class JobListView(ListAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer

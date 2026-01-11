@@ -22,22 +22,22 @@ SECRET_KEY = os.environ.get(
 # ========================
 # DEBUG CONFIGURATION
 # ========================
-DEBUG = True
-
-# Railway automatically sets this variable
-if os.getenv("RAILWAY_ENVIRONMENT"):
-    DEBUG = False
+DEBUG = os.getenv("RAILWAY_ENVIRONMENT") is None
 
 # ========================
 # ALLOWED HOSTS
 # ========================
-ALLOWED_HOSTS = ["*"]  # Required for Railway deployment
+ALLOWED_HOSTS = [
+    "careerboost-backend-production-adad.up.railway.app",
+    "localhost",
+    "127.0.0.1",
+]
 
 # ========================
 # APPLICATIONS
 # ========================
 INSTALLED_APPS = [
-    # Django default apps
+    # Django core
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -45,11 +45,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Third-party apps
+    # Third-party
     "rest_framework",
     "corsheaders",
 
-    # Custom apps
+    # Local apps
     "users",
     "jobs",
 ]
@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 # MIDDLEWARE
 # ========================
 MIDDLEWARE = [
-    "corsheaders.middleware.CorsMiddleware",  # must be first
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -69,7 +69,7 @@ MIDDLEWARE = [
 ]
 
 # ========================
-# URL CONFIG
+# URL CONFIGURATION
 # ========================
 ROOT_URLCONF = "careerboost_backend.urls"
 
@@ -128,17 +128,23 @@ USE_TZ = True
 # STATIC & MEDIA FILES
 # ========================
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / "media"
 
 # ========================
 # CORS CONFIGURATION
 # ========================
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # local dev
-    "https://your-frontend.up.railway.app",  # deployed frontend
+    "http://localhost:3000",
+]
+
+# ========================
+# CSRF CONFIGURATION (CRITICAL FIX)
+# ========================
+CSRF_TRUSTED_ORIGINS = [
+    "https://careerboost-backend-production-adad.up.railway.app",
 ]
 
 # ========================
