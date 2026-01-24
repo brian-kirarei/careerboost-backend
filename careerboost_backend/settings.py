@@ -22,7 +22,7 @@ if not SECRET_KEY:
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    "careerboost-backend-production-adad.up.railway.app",
+    ".up.railway.app",
     "localhost",
     "127.0.0.1",
 ]
@@ -75,6 +75,7 @@ TEMPLATES = [
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
+                "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
@@ -84,7 +85,7 @@ TEMPLATES = [
 ]
 
 # ==================================================
-# DATABASE (Railway Postgres)
+# DATABASE (Railway Postgres — REQUIRED)
 # ==================================================
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
@@ -126,16 +127,14 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # ==================================================
 # CORS
 # ==================================================
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 # ==================================================
-# CSRF / COOKIES (Railway HTTPS)
+# CSRF / COOKIES
 # ==================================================
 CSRF_TRUSTED_ORIGINS = [
-    "https://careerboost-backend-production-adad.up.railway.app",
+    "https://*.up.railway.app",
 ]
 
 CSRF_COOKIE_SECURE = True
